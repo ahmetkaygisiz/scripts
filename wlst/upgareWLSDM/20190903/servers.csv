@@ -1,0 +1,4 @@
+# << hostname >>,<<ssh_port >>,<< ssh user >>,<< ssh pass >>,<< file >> | << destination >>, << file1 >> | << destination1>> ,�
+localhost,23,weblogic,welcome1,wlsdm.war;/tmp/falan/filan,wlsdm_agent.jar;/tmp/falan/filan,
+localhost,23,weblogic,welcome1,wlsdm.war;/tmp/falan/filan,wlsdm_agent.jar;/tmp/falan/filan,
+localhost,23,weblogic,welcome1,wlsdm.war;/tmp/falan/filan,wlsdm_agent.jar;/tmp/falan/filan,

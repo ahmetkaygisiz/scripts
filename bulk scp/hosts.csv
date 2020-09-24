@@ -1,0 +1,2 @@
+#<< host >>;<< username >> ;<< pass >>;<< file >>;<< destination >>
+localhost;weblogic;welcome1;wlsdm.war;/data/domains/akua_domain/console-ext/

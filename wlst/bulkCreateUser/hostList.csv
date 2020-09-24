@@ -1,0 +1,3 @@
+# << Domain Name >> ,<< admin URL >>,<< username >>,<< password >>,<< security realm >>
+volthread_domain,t3://localhost:7001,weblogic,welcome1,myrealm
+volthread_domain,t3://localhost:7001,weblogic,welcome1,myrealm

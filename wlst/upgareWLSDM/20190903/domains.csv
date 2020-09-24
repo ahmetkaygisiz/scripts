@@ -1,0 +1,2 @@
+# << hostname >> ,<< admin_port >>,<< wl_username >>,<< wl_password >>,<< Admin Restart Script Absolute Path >>
+localhost,7001,weblogic,welcome1,/StartScriptEvriver
