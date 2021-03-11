@@ -1,23 +1,19 @@
 #!/bin/bash
 
-#_URL=$1
-#_CLASS=$2
-#_IDENTIFIER=$3
+# For notification problem in crontab 
+# https://askubuntu.com/questions/298608/notify-send-doesnt-work-from-crontab
+eval "export $(egrep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep -u $LOGNAME plasma)/environ)";
 
-VALUE=`curl -X GET "https://www.hepsiburada.com/hp-1kf75aa-omen-by-hp-600-12-000-dpi-oyuncu-mouse-p-HBV000008HST3" | grep "class=\"extra-discount-price\"" | cut -d'>' -f3 | cut -d ',' -f1`
-echo "CALISIYO BURASI" >> /data/scripts/crontab_price/tmp.txt
+# Parse URL
+_URL="https://www.hepsiburada.com/hp-1kf75aa-omen-by-hp-600-12-000-dpi-oyuncu-mouse-p-HBV000008HST3"
 
-notify-send "It works!"
+# For 
+VALUE=`curl -X GET $_URL | grep "class=\"extra-discount-price\"" | cut -d'>' -f3 | cut -d ',' -f1`
 
-if [ $VALUE -lt 200 ]
+if [ $VALUE -lt 300 ]
 then
-	notify-send "OLdu" "olamadi hala"
-	eval "export $(egrep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep -u $LOGNAME xfce4-session)/environ)"; notify-send  "hello world" 
-	echo "CALISIYO BURASI da" >> /data/scripts/crontab_price/tmp.txt
+	/usr/bin/notify-send  "Product discount" 
 fi
 
-echo "CIKTIM" >> /data/scripts/crontab_price/tmp.txt
-
-eval "export $(egrep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep -u $LOGNAME gnome-session)/environ)";
 # the actual notification
-DISPLAY=:0 notify-send "Notify me!"
+#export DISPLAY=:0 notify-send "Notify me!"

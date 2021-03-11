@@ -1,0 +1,167 @@
+gnu/linux, network, security, penetration test, application security, tcpdump, wireshark, 2600, phrack, rootshell
+
+Linux System Architecture
+	- Hardware
+	- Kernel
+		- OS'in ana parçasıdır.
+		- Burada hardware ile etkileşime geçecek modüller bulunur.
+		Farklı kernel tipleri vardır.
+		- Monolithic -> Linux
+		- Micro : less space but lower efficiency
+		- Exo
+		- Hybrid
+
+	- Shell : Linux için özel bir yorumlayıcıdır. Komutların yürütülmesini sağlar. 
+		- Korn Shell -ksh
+		- Born Shell - sh
+		- C Shell - csh ? 
+		- Born Again Shell - Bash,
+		- Zsh ?
+	- Applications
+
+
+Linux Vs Windows
+Linux 
+	- Monolithic Kernel
+	- Herşey bir dosya gibidir. Directories, files, harici cihazlar...
+	- Çoklu kullanıcı mimarisi için tasarlanmıştır. Bu tekil kullanıcılar için de stabil bir çalışma ortamı sağlar.
+	- Privacy
+	- Ana programlama dillerinin desteklemesi (Python, Java, C/C++)
+Windows
+	- Micro Kernel
+	- C: D: E: gibi farklı data drives üzerinde veriler depolanır.
+	- Dosyalar yukarıdaki roottan itibaren ağaç şeklinde dallanır.
+	- Tek bir kullanıcının internet bağlantısı olmadan kullanabilmesi amacıyla yaratılmıştır. Sonradan güvenlik eklemeleri yapılmıştır.
+	- Bir sistem hatasını düzeltmek herkesin elindedir. 
+
+
+File Structure
+	/bin : Kullanıcının ihtiyacı olan komut programları burada bulunur.
+	/usr/bin : kullanıcılara has uygulamalar burada tutulur.
+	/sbin : it contains essential system administration binaries
+	/boot : statik boot dosyaları bulunur. GRUB boot loader dosyaları ve Linux kernel burada tutulur. 
+	/cdroom
+	/dev : Device files. donanım burada dosya şeklinde tutuluyor aslında. tam olarak dosya değil fakat abstract bir yapı olarak duruyor. This directory also contains pseudo-devices. 
+	/dev/random : random sayı üretir.
+	/dev/null : outputu yutmayı sağlayan özel bir path.
+	/etc : Configuration files burada tutulur. 
+	/home : User files. desktop documents etc.
+	/lib : harici paylaşımlı kütüphaneler.
+	/lost+found : Recovered files. System crash durumunda dosyalar buradan başlatılır.
+	/media : removable media. 
+	/mnt : tmp mount point.
+	/opt : optional paketler.
+	/proc : kernel ve process dosyaları.
+	/root : root'un home directory
+	/run : uygulama durum dosyaları. Uygulamalara geçici dosyalarını burada oluşturmalarını sağlar.
+	/var : variable data files. /usr dosyasının bir uzantısı fakat read-only olarak kullanılabilecek yapıda.
+
+/////////////////
+
+ls -R 				: Recursive tüm folderların içerikleri dahil listeler.
+ls -l 				: long listing
+ls -l my_script 	: filter
+ls -l my_scr?pt 	: represent one char
+ls -l my* 			: represent any number of charachters
+ls -l my_s*t 		: s ile t arasındaki boşlugu doldurur.
+ls -l my_scr[ai]pt 	: a veya i olabilir.
+ls -l f[a-i]ll 		: a ile i arasındaki tüm harfleri dahil edilir.
+ls -l f[!a]ll 		: olmayanları getir.
+
+cp test_one test_two
+cp -i test_one test_two : eğer bulunan yerde bu file varsa override edeyim mi diye sorar.
+
+ln -s existing_file smbolic_link_name 	: bulunduğu dosyanın yerini gösterir.
+ln existing_file hard_link_name 		: doğrudan aynı dosyayı oluşturur. Birisine eklediysen diğerine de eklenir. Fiziksel olarak aynı dosya.
+
+rm file_name
+rm -i file_name 		: onay ister. y/n
+rmdir folder_name 		: sadece empty dosyaları siler
+rm -r folder_name 		: dolu boş siler alayını
+rm -ri folder_name 		: içerik dahil hepsini silmek için onay ister.
+rm -rf folder_name 		: onay beklemeden alayını siler.
+
+mkdir -p New_dir/Sub_dir/Sub_Sub_dir
+
+tree folder_name : dosya yapısını ağaç şeklinde gösterir.
+
+file my_file 	: view file type.
+cat -n my_file 	: line ile dosyayı bas. 
+cat -b my_file 	: boş olan satırları atlar.
+cat -T my_file	: tab karakterlerini görmek istemiyorsanız. ^I şeklinde gözükr.
+
+more my_file : yukarıdan itibaren bir ekranlık satır göstermeye başlar
+less my_file : daha gelişmiş more komutudur. aşağıdan yukarıya doğru gösterir.
+
+tail log_file 		: son 10 satırı gösterir.
+tail -n 2 log_file 	: son 2 satırı gösterir.
+tail -f log_file 	: stay active. akışı takip et.
+
+head log_file 		: baştan 10 satır gösterir.
+head -5 log_file 	: baştan 5 satır.
+
+readlink -f file 	: file'ın absolute path'ini verir.
+
+ps 		: Sadece şuan çık olan terminaldeki processleri gösterir.
+
+1 HUP 		: Hangs up
+2 INT 		: Interrupts
+3 QUIT 		: Stops running
+9 KILL 		: unconditionally terminates
+11 SEGV		: Prodyces segment violation 
+15 TERM 	: Terminates if possible
+17 STOP 	: Stops unconditionally but doesnt terminate
+18 TSTP 	: Stops or pauses, but continues to run in background
+19 CONT 	: Resumes execution after STOP or TSTP
+
+kill $PID : default olarak TERM sinyalini gönderir. 
+
+pgrep -u $username 'pattern*'
+	pgrep -lu kaygisiz 'subl*'
+
+pidof $process_name
+	pidof deepin-terminal
+
+killall <process_name>
+killall http*
+
+mount	:	displays a list of media devices currently mounted on the system.
+
+---------------------------
+
+deb paketi oluşturma
+-----------------------------------------------------------
+Yöntem 1 
+	
+	Kaynak : https://medium.com/@oguzaninan/debian-deb-paketi-nas%C4%B1l-olu%C5%9Fturulur-c75a391eb705
+
+	1- Gereksinimleri yükle.
+		sudo apt-get install dh-make devscripts
+	2 - Ana dizini oluştur
+		mkdir -p create-deb-package/mypackage-1.0 && cd $_
+
+	3 - vim myscript.sh
+
+		#!/bin/bash
+
+		echo "Eskiya dünyaya hükümdar olmaz!!!!"
+
+	4 - Gerekli aşağıdaki değişkenleri tanımla
+		export DEBEMAIL="ahmetkaygisiz17@gmail.com"
+		export DEBFULLNAME="Ahmet Kaygisiz"
+
+	5 - dh_make --indep --createorig
+		--indep : tüm cpu mimarileri için çalıştırılabilir demek.
+		--createorig : paket için gerekli olan tar.xz dosyası bir üst dizinde oluşturulur.
+
+		Bu komut bir üst klasörde debian isimli bir klasör ve içerisinde gerekli dosyaları oluşturur.
+
+		Bunlar :
+			control : 
+			changelog : 
+			rules : 
+			postinst : 
+			postrm : 
+			preinst : 
+			prerm : 
+			paket_adi.cron.d : 
